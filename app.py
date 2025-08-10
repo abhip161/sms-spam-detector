@@ -5,9 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix
 
-# -----------------------
-# Load the saved model
-# -----------------------
 @st.cache_resource
 def load_model():
     try:
@@ -17,21 +14,12 @@ def load_model():
 
 model = load_model()
 
-# -----------------------
-# Streamlit UI Settings
-# -----------------------
 st.set_page_config(page_title="📩 SMS Spam Detector", page_icon="📱")
 st.title("📩 SMS Spam Detector")
 st.write("Detect whether a message is **Spam** or **Ham** using a trained ML model.")
 
-# -----------------------
-# Sidebar for Mode Selection
-# -----------------------
 mode = st.sidebar.radio("Choose Mode:", ["Single Message Prediction", "Dataset Evaluation", "Instructions"])
 
-# -----------------------
-# Single Message Prediction Mode
-# -----------------------
 if mode == "Single Message Prediction":
     st.subheader("🔍 Predict a Single Message")
     message = st.text_area("Enter your message:")
@@ -49,9 +37,6 @@ if mode == "Single Message Prediction":
                 else:
                     st.success("✅ This message is **HAM** (Not Spam).")
 
-# -----------------------
-# Dataset Evaluation Mode
-# -----------------------
 elif mode == "Dataset Evaluation":
     st.subheader("📊 Evaluate on a Dataset")
     uploaded_file = st.file_uploader("Upload CSV file (with 'sms' and 'label' columns)", type="csv")
@@ -87,9 +72,6 @@ elif mode == "Dataset Evaluation":
                 ax.set_ylabel("Actual")
                 st.pyplot(fig)
 
-# -----------------------
-# Instructions Mode
-# -----------------------
 else:
     st.subheader("🛠 Instructions")
     st.markdown(""" 
